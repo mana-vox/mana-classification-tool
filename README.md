@@ -10,10 +10,11 @@ The api folder contains a Django API.
 
 To run it:
 - Go into the api folder
-- Create a virtual environment with Python 3 `virtualenv -p python3 venv`
+- Create a virtual environment with Python 3 `virtualenv -p python3 venv` (to do just once)
+- Activate the virtual environment `source venv/bin/activate`
 - Install the libraries with `pip install -r requirements.txt`
 - Go into the src folder
-- Put the db.sqlite3 file in the src folder
+- Put the db.sqlite3 file in the src folder (to do just once)
 - To create a super user (so that you can connect to Django admin), run `python manage.py createsuperuser`
 - To launch the app, run `python manage.py runserver`
 - To get access to Django admin, go to http://127.0.0.1:8000/admin in your browser

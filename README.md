@@ -19,4 +19,7 @@ To run it:
 - To get access to Django admin, go to http://127.0.0.1:8000/admin in your browser
 
 
+Run `python manage.py test` to make run all the tests in the tests.py files.
+
+
 Run `flake8` to make sure your code complies with the most known Python conventions.

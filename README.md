@@ -1,9 +1,9 @@
-# mana-classification-tool
+# Mana Classification Tool
 First mana-vox github repository - for sentence classification
 
-# Set-up
+## Set-up
 
-## Install Vue.js dependencies
+### Install Vue.js dependencies
 
 ```npm install -g @vue/cli```
 
@@ -13,6 +13,6 @@ brew update
 brew install node
 ```
 
-## Launch local server
+### Launch local server
 
 In the folder ```classification_tool```, execute ```npm run serve```, access the app on [http://localhost:8080/](http://localhost:8080/).  

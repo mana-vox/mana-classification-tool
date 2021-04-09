@@ -52,3 +52,26 @@ def classify_article_view(request):
     account_article.save()
     data = {'classify': 'Successfully classified the article'}
     return Response(status=status.HTTP_200_OK, data=data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_article_view(request):
+    account = Account.objects.get(email=request.user.email)
+    classified_articles_ids = [el['article_id'] for el in list(
+        AccountArticle.objects.filter(account=account).values('article_id'))]
+    articles_not_classified = Article.objects.exclude(id__in=classified_articles_ids)
+    for article in articles_not_classified:
+        if AccountArticle.objects.filter(article=article).count() <= 2:
+            sentences = []
+            for sentence in Sentence.objects.filter(article=article):
+                sentence_data = {
+                    'id': sentence.id,
+                    'sentence_text': sentence.sentence_text
+                }
+                sentences.append(sentence_data)
+            data = {
+                'sentences': sentences
+            }
+            return Response(status=status.HTTP_200_OK, data=data)
+    return Response(status=status.HTTP_404_NOT_FOUND, data={})

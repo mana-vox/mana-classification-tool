@@ -5,7 +5,10 @@ First mana-vox github repository - for sentence classification
 
 ## Install Vue.js dependencies
 
-```npm install -g @vue/cli```
+```
+npm install -g @vue/cli
+npm install -s bootstrap-vue bootstrap 
+```
 
 If ```npm``` is not installed yet, please execute:
 ``` 

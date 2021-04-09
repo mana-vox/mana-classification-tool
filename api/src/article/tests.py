@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from .models import Article, Sentence
+from .models import Article, Sentence, AccountArticle, AccountSentence
 from account.models import Account
 
 
@@ -139,3 +139,30 @@ class ArticleTests(APITestCase):
         self.assertEqual(Sentence.objects.count(), 2)
         self.assertEqual(Sentence.objects.first().sentence_text, 'One sentence')
         self.assertEqual(Sentence.objects.all()[1].sentence_text, 'Another sentence')
+
+    def test_classify_article(self):
+        data_register = {
+            'email': 'nonexisting@manavox.com',
+            'password': 'passwordtest'
+        }
+        response_1 = self.client.post('/account/' + 'register', data_register, format='json')
+        account = Account.objects.get(email='nonexisting@manavox.com')
+        account.is_staff = True
+        account.save()
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + response_1.data['token'])
+        data_article = {
+            'id_article': 1,
+            'full_text': 'One sentence. Another sentence',
+            'url': 'https://www.wikipedia.org/'
+        }
+        _ = self.client.post(APP_NAME + 'new', data_article, format='json')
+        data_classify = {
+            'sentences': [
+                {str(Sentence.objects.first().id): 'OUI_MANA'},
+                {str(Sentence.objects.all()[1].id): 'NON_MANA'}
+            ]
+        }
+        response_3 = self.client.post(APP_NAME + 'classify', data_classify, format='json')
+        self.assertEqual(response_3.status_code, status.HTTP_200_OK)
+        self.assertEqual(AccountArticle.objects.count(), 1)
+        self.assertEqual(AccountSentence.objects.count(), 2)

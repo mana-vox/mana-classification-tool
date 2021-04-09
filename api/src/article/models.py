@@ -15,7 +15,6 @@ class Sentence(models.Model):
 class AccountArticle(models.Model):
     account = models.ForeignKey('account.Account', on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    label = models.BooleanField()
 
 
 class AccountSentence(models.Model):

@@ -1,10 +1,11 @@
 
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
-from .models import Article, Sentence
+from .models import Article, Sentence, AccountArticle, AccountSentence
+from account.models import Account
 
 
 @api_view(['POST'])
@@ -34,3 +35,20 @@ def new_article_view(request):
     data = {'article': 'Successfully created a new article'}
     status_code = status.HTTP_201_CREATED
     return Response(status=status_code, data=data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def classify_article_view(request):
+    account = Account.objects.get(email=request.user.email)
+    for sentence in request.data['sentences']:
+        sentence_id = int(list(sentence.keys())[0])
+        sentence_object = Sentence.objects.get(id=sentence_id)
+        label = sentence[str(sentence_id)] == 'OUI_MANA'
+        account_sentence = AccountSentence(account=account, sentence=sentence_object, label=label)
+        account_sentence.save()
+    article = sentence_object.article
+    account_article = AccountArticle(account=account, article=article)
+    account_article.save()
+    data = {'classify': 'Successfully classified the article'}
+    return Response(status=status.HTTP_200_OK, data=data)

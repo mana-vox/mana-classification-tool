@@ -18,4 +18,9 @@ brew install node
 
 ## Launch local server
 
-In the folder ```classification_tool```, execute ```npm run serve```, access the app on [http://localhost:8080/](http://localhost:8080/).  
+In the folder ```classification_tool```, execute 
+```
+npm install
+npm run serve
+```
+and access the app on [http://localhost:8080/](http://localhost:8080/).  

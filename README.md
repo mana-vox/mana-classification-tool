@@ -14,7 +14,7 @@ To run it:
 - Activate the virtual environment `source venv/bin/activate`
 - Install the libraries with `pip install -r requirements.txt`
 - Go into the src folder
-- Put the db.sqlite3 file in the src folder (to do just once)
+- Run `python manage.py migrate` (it will create a db.sqlite3 file automatically and create all the tables that are specified thanks to the files in the folders /migrations in each app)
 - To create a super user (so that you can connect to Django admin), run `python manage.py createsuperuser`
 - To launch the app, run `python manage.py runserver`
 - To get access to Django admin, go to http://127.0.0.1:8000/admin in your browser

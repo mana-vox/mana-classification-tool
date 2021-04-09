@@ -158,8 +158,14 @@ class ArticleTests(APITestCase):
         _ = self.client.post(APP_NAME + 'new', data_article, format='json')
         data_classify = {
             'sentences': [
-                {str(Sentence.objects.first().id): 'OUI_MANA'},
-                {str(Sentence.objects.all()[1].id): 'NON_MANA'}
+                {
+                    'id': Sentence.objects.first().id,
+                    'label': 'OUI_MANA'
+                },
+                {
+                    'id': Sentence.objects.all()[1].id,
+                    'label': 'NON_MANA'
+                }
             ]
         }
         response_3 = self.client.post(APP_NAME + 'classify', data_classify, format='json')

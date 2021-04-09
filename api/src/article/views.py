@@ -42,9 +42,8 @@ def new_article_view(request):
 def classify_article_view(request):
     account = Account.objects.get(email=request.user.email)
     for sentence in request.data['sentences']:
-        sentence_id = int(list(sentence.keys())[0])
-        sentence_object = Sentence.objects.get(id=sentence_id)
-        label = sentence[str(sentence_id)] == 'OUI_MANA'
+        sentence_object = Sentence.objects.get(id=sentence['id'])
+        label = sentence['label'] == 'OUI_MANA'
         account_sentence = AccountSentence(account=account, sentence=sentence_object, label=label)
         account_sentence.save()
     article = sentence_object.article

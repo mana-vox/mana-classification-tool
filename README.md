@@ -8,6 +8,8 @@ First mana-vox github repository - for sentence classification
 ```
 npm install -g @vue/cli
 npm install -s bootstrap-vue bootstrap 
+cd classification-app
+vue add bootstrap-vue
 ```
 
 If ```npm``` is not installed yet, please execute:

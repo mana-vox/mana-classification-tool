@@ -8,6 +8,7 @@ First mana-vox github repository - for sentence classification
 ```
 npm install -g @vue/cli
 npm install -s bootstrap-vue bootstrap 
+npm install --save axios 
 cd classification-app
 vue add bootstrap-vue
 vue add router

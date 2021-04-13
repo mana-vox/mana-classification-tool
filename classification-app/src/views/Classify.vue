@@ -1,9 +1,9 @@
 <template>
   <div>
     <h1> Classification page </h1>
-    <GetArticleToClassify/>
-    <SentencesTable v-bind:sentences="sentences"/>
-    <SubmitArticle v-bind:sentences="sentences"/>
+    <GetArticleToClassify v-bind:showTable="showTable"/>
+    <SentencesTable v-bind:sentences="sentences" v-bind:showTable="showTable"/>
+    <SubmitArticle v-bind:sentences="sentences" v-bind:showTable="showTable"/>
   </div>
 </template>
 
@@ -23,6 +23,7 @@
         data() {
             return {
                 fields: ['sentence', 'label_selector'],
+                showTable: true,
                 sentences: [
                     { id: 1, label: 0, sentence: "On teste des phrases en dur à classifier" },
                     { id: 2, label: 1, sentence: "J'espère que ça va bien marcher avec des phrases longues" },

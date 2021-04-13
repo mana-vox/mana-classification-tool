@@ -7,9 +7,11 @@
 <script>
     export default {
         name: "GetArticleToClassify",
+        props: ['showTable'], 
         methods: {
             onSubmit(event) {
                 event.preventDefault()
+                this.showTable = true
                 alert(JSON.stringify("Get article to classify"))
             }
         }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-table :items="sentences" :fields="fields" striped responsive="sm">
+    <b-table v-if="showTable === true" :items="sentences" :fields="fields" striped responsive="sm">
 
       <template #cell(label_selector)="sentence">
         <LabelSelector v-bind:sentence="sentence.item"/>
@@ -15,7 +15,7 @@
 
     export default {
         name: "SentencesTable",
-        props: ['sentences'],
+        props: ['sentences', 'showTable'],
         components: {
             LabelSelector
         },

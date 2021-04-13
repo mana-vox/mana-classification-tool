@@ -7,10 +7,11 @@
 <script>
     export default {
         name: "SubmitArticle",
-        props: ['sentences'],
+        props: ['sentences', 'showTable'],
         methods: {
             onSubmit(event) {
                 event.preventDefault()
+                this.showTable = false
                 alert(JSON.stringify(this.sentences))
             }
         }

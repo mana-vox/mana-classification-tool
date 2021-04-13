@@ -10,6 +10,7 @@ npm install -g @vue/cli
 npm install -s bootstrap-vue bootstrap 
 cd classification-app
 vue add bootstrap-vue
+vue add router
 ```
 
 If ```npm``` is not installed yet, please execute:

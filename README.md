@@ -4,8 +4,20 @@ First mana-vox Github repository - for sentence classification
 To create commits in this repository, please follow the recommendations from [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 
-## api
-The api folder contains a Django API.
+```
+npm install -g @vue/cli
+npm install -s bootstrap-vue bootstrap 
+cd classification-app
+vue add bootstrap-vue
+vue add router
+```
+
+In the folder ```classification_tool```, execute 
+```
+npm install
+npm run serve
+```
+and access the app on [http://localhost:8080/](http://localhost:8080/). 
 
 
 To run it:
@@ -22,5 +34,4 @@ To run it:
 
 Run `python manage.py test` to make run all the tests in the tests.py files.
 
-
-Run `flake8` to make sure your code complies with the most known Python conventions.
+Run `flake8` to make sure your code complies with the most known Python conventions. 

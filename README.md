@@ -7,6 +7,7 @@ To create commits in this repository, please follow the recommendations from [Co
 ```
 npm install -g @vue/cli
 npm install -s bootstrap-vue bootstrap 
+npm install --save axios
 cd classification-app
 vue add bootstrap-vue
 vue add router

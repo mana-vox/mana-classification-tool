@@ -20,4 +20,4 @@ class AccountArticle(models.Model):
 class AccountSentence(models.Model):
     account = models.ForeignKey('account.Account', on_delete=models.CASCADE)
     sentence = models.ForeignKey(Sentence, on_delete=models.CASCADE)
-    label = models.BooleanField()
+    label = models.IntegerField()

@@ -160,11 +160,11 @@ class ArticleTests(APITestCase):
             'sentences': [
                 {
                     'id': Sentence.objects.first().id,
-                    'label': 'OUI_MANA'
+                    'label': -1
                 },
                 {
                     'id': Sentence.objects.all()[1].id,
-                    'label': 'NON_MANA'
+                    'label': 1
                 }
             ]
         }

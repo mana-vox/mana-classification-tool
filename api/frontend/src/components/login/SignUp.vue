@@ -10,6 +10,7 @@
 </template>
 
 <script>
+    import axios from 'axios'
     import LoginForm from './LoginForm.vue'
 
     export default {
@@ -28,7 +29,10 @@
         methods: {
             onSubmit(event) {
                 event.preventDefault()
-                alert(JSON.stringify(this.login_form))
+                axios.post('account/register', {
+                        "email": this.login_form.login,
+                        "password": this.login_form.password}).then(response => (console.log(response)))
+                // alert(JSON.stringify(this.login_form))
                 this.$nextTick(() => {
                     this.$bvModal.hide('sign-up-modal')
                 })

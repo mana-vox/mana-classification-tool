@@ -9,4 +9,5 @@ db.sqlite3
 venv
 
 # Node modules
-node_modules
+api/frontend/node_modules
+api/frontend/build

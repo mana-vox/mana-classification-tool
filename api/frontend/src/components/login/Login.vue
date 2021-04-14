@@ -9,6 +9,7 @@
 </template>
 
 <script>
+    import axios from 'axios'
     import LoginForm from './LoginForm.vue'
 
     export default {
@@ -22,12 +23,17 @@
                     login: '',
                     password: '',
                 },
+                token: null
             }
         },
         methods: {
             onSubmit(event) {
                 event.preventDefault()
-                alert(JSON.stringify(this.login_form))
+                axios.post('account/login', {
+                        "email": this.login_form.login,
+                        "username": this.login_form.login,
+                        "password": this.login_form.password}).then(response => (console.log(response)))
+                // alert(JSON.stringify(this.login_form))
             },
             onReset(event) {
                 event.preventDefault()

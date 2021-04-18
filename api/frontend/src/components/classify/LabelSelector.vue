@@ -12,9 +12,9 @@
             return {
                 selected: this.sentence.label,
                 options: [
-                    { value: 0, text: 'OSEF' },
-                    { value: 1, text: 'Non-MANA' },
-                    { value: 2, text: 'Oui-MANA' },
+                    { value: -1, text: 'OSEF' },
+                    { value: 0, text: 'Non-MANA' },
+                    { value: 1, text: 'Oui-MANA' },
                 ]
             }
         },

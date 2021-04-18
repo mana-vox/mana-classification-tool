@@ -13,6 +13,9 @@ import SignUp from '../components/login/SignUp.vue'
 
 export default {
   name: 'Home',
+  async created() {
+    localStorage.removeItem("token")
+  },
   components: {
     Login,
     SignUp

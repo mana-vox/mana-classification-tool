@@ -2,6 +2,7 @@
     <div>
         <b-form @submit="onSubmit" @reset="onReset">
             <LoginForm v-bind:login_form="login_form"></LoginForm>
+            <ErrorAlert v-bind:message="errorMessage" ref="errorAlert"></ErrorAlert>
             <b-button type="submit" variant="primary">Submit</b-button>
             <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
@@ -11,11 +12,12 @@
 <script>
     import axios from 'axios'
     import LoginForm from './LoginForm.vue'
+    import ErrorAlert from '../generic/ErrorAlert'
 
     export default {
         name: "Login",
         components: {
-            LoginForm
+            LoginForm, ErrorAlert
         },
         data() {
             return {
@@ -23,17 +25,25 @@
                     login: '',
                     password: '',
                 },
-                token: null
+                token: null,
+                errorMessage: "Failed (bad login and/or password)"
             }
         },
         methods: {
             onSubmit(event) {
                 event.preventDefault()
                 axios.post('account/login', {
-                        "email": this.login_form.login,
-                        "username": this.login_form.login,
-                        "password": this.login_form.password}).then(response => (console.log(response)))
-                // alert(JSON.stringify(this.login_form))
+                    "email": this.login_form.login,
+                    "username": this.login_form.login,
+                    "password": this.login_form.password
+                }).then(response => {
+                    localStorage.setItem('token', response.data.token)
+                    this.$router.push("/classify")
+                }).catch(error => {
+                    localStorage.removeItem('token')
+                    this.$refs.errorAlert.showAlert();
+                    console.log(error.response)
+                })
             },
             onReset(event) {
                 event.preventDefault()

@@ -1,14 +1,15 @@
 <template>
   <div>
     <h1> Classification page </h1>
-    <GetArticleToClassify v-bind:showTable="showTable"/>
-    <SentencesTable v-bind:sentences="sentences" v-bind:showTable="showTable"/>
-    <SubmitArticle v-bind:sentences="sentences" v-bind:showTable="showTable"/>
+    <GetArticleToClassify v-bind:showTable="showTable" @gotArticle="gotArticle"/>
+    <SentencesTable v-bind:sentences="sentences" v-bind:tableShown="tableShown" ref="sentencesTable"/>
+    <SubmitArticle v-bind:sentences="sentences" v-bind:tableShown="tableShown" @submitArticle="submitArticle" ref="submitArticle"/>
   </div>
 </template>
 
 
 <script>
+    import axios from 'axios' 
     import GetArticleToClassify from '../components/classify/GetArticleToClassify'
     import SentencesTable from '../components/classify/SentencesTable.vue'
     import SubmitArticle from '../components/classify/SubmitArticle.vue'
@@ -20,16 +21,38 @@
             SentencesTable,
             SubmitArticle
         },
+        methods: {
+            gotArticle(params) {
+                this.tableShown = params.tableShown
+                params.sentences.forEach(function (element) {
+                    element.label = -1;
+                });
+                this.sentences = params.sentences
+                console.log("gotArticle")
+                console.log(this.tableShown)
+                console.log(this.sentences)
+
+                // this.$refs.sentencesTable.show(this.tableShown);
+                // this.$refs.submitArticle.show(this.tableShown);
+            },
+            submitArticle(params) {
+                this.tableShown = params.tableShown
+                this.sentences = params.sentences
+
+                console.log("submitArticle")
+                console.log(this.tableShown)
+                console.log(this.sentences)
+
+                this.$refs.sentencesTable.show(this.tableShown);
+                this.$refs.submitArticle.show(this.tableShown);
+            }
+        },
         data() {
             return {
                 fields: ['sentence', 'label_selector'],
-                showTable: true,
-                sentences: [
-                    { id: 1, label: 0, sentence: "On teste des phrases en dur à classifier" },
-                    { id: 2, label: 1, sentence: "J'espère que ça va bien marcher avec des phrases longues" },
-                    { id: 3, label: 2, sentence: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at viverra mi, in rhoncus lorem. Phasellus hendrerit orci ut mi congue, sagittis aliquet diam interdum. Mauris ut massa sit amet neque interdum efficitur vestibulum quis lectus. Phasellus vehicula ultricies ipsum, at vestibulum ipsum semper in. Vestibulum at massa lacinia, vestibulum lacus in, sodales ante. Sed ligula libero, scelerisque non lorem non, feugiat tincidunt quam. Proin consequat porttitor vehicula. ' },
-                    { id: 4, label: 0, sentence: "C'est pas si mal avec des phrases longues" }
-                ]
+                token: localStorage.getItem('token') || null,
+                sentences: null,
+                tableShown: false
             }
         }
     }

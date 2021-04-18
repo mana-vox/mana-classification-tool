@@ -1,9 +1,10 @@
 <template>
     <div>
-        <b-button variant='primary' v-b-modal.sign-up-modal>Sign up</b-button>
+        <b-button @click="modalShow=true" variant='primary' v-b-modal.sign-up-modal>Sign up</b-button>
 
-        <b-modal @ok="onSubmit" id="sign-up-modal" title="Sign up">
+        <b-modal @ok="onSubmit" v-if="modalShow" id="sign-up-modal" title="Sign up">
             <LoginForm v-bind:login_form="login_form"></LoginForm>
+            <ErrorAlert v-bind:message="errorMessage" ref="errorAlert"></ErrorAlert>
         </b-modal>
 
     </div>
@@ -12,11 +13,12 @@
 <script>
     import axios from 'axios'
     import LoginForm from './LoginForm.vue'
+    import ErrorAlert from '../generic/ErrorAlert'
 
     export default {
         name: "SignUp",
         components: {
-            LoginForm
+            LoginForm, ErrorAlert
         },
         data() {
             return {
@@ -24,6 +26,8 @@
                     login: '',
                     password: '',
                 },
+                errorMessage: "Unable to create user. Username already exists.",
+                modalShow: false
             }
         },
         methods: {
@@ -31,11 +35,14 @@
                 event.preventDefault()
                 axios.post('account/register', {
                         "email": this.login_form.login,
-                        "password": this.login_form.password}).then(response => (console.log(response)))
-                // alert(JSON.stringify(this.login_form))
-                this.$nextTick(() => {
-                    this.$bvModal.hide('sign-up-modal')
-                })
+                        "password": this.login_form.password
+                    }).then(response => {
+                        this.modalShow = false
+                        console.log(response)
+                    }).catch(error => {
+                        this.$refs.errorAlert.showAlert();
+                        console.log(error)
+                    })
             },
         }
     }

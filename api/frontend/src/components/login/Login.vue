@@ -13,6 +13,7 @@
     import axios from 'axios'
     import LoginForm from './LoginForm.vue'
     import ErrorAlert from '../generic/ErrorAlert'
+    import { bus } from '../../main'
 
     export default {
         name: "Login",
@@ -38,6 +39,7 @@
                     "password": this.login_form.password
                 }).then(response => {
                     localStorage.setItem('token', response.data.token)
+                    bus.$emit('logged', 'User logged')
                     this.$router.push("/classify")
                 }).catch(error => {
                     localStorage.removeItem('token')

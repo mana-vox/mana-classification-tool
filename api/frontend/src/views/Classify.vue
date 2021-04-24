@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <h1> Classification page </h1>
-    <GetArticleToClassify v-bind:showTable="showTable" @gotArticle="gotArticle"/>
-    <SentencesTable v-bind:sentences="sentences" v-bind:tableShown="tableShown" ref="sentencesTable"/>
-    <SubmitArticle v-bind:sentences="sentences" v-bind:tableShown="tableShown" @submitArticle="submitArticle" ref="submitArticle"/>
-  </div>
+    <div>
+        <h1> Classification page </h1>
+        <GetArticleToClassify v-bind:showTable="showTable" @gotArticle="gotArticle"/>
+        <SentencesTable v-bind:sentences="sentences" v-bind:tableShown="tableShown" ref="sentencesTable"/>
+        <SubmitArticle v-bind:sentences="sentences" v-bind:tableShown="tableShown" @submitArticle="submitArticle" ref="submitArticle"/>
+    </div>
 </template>
 
 
@@ -28,20 +28,10 @@
                     element.label = -1;
                 });
                 this.sentences = params.sentences
-                console.log("gotArticle")
-                console.log(this.tableShown)
-                console.log(this.sentences)
-
-                // this.$refs.sentencesTable.show(this.tableShown);
-                // this.$refs.submitArticle.show(this.tableShown);
             },
             submitArticle(params) {
                 this.tableShown = params.tableShown
                 this.sentences = params.sentences
-
-                console.log("submitArticle")
-                console.log(this.tableShown)
-                console.log(this.sentences)
 
                 this.$refs.sentencesTable.show(this.tableShown);
                 this.$refs.submitArticle.show(this.tableShown);

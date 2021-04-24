@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <b-table v-show="tableShown" :items="sentences" :fields="fields" striped responsive="sm">
+    <div>
+        <b-table v-show="tableShown" :items="sentences" :fields="fields" striped responsive="sm">
 
-      <template #cell(label_selector)="sentence">
-        <LabelSelector v-bind:sentence="sentence.item"/>
-      </template>
+            <template #cell(label_selector)="sentence">
+                <LabelSelector v-bind:sentence="sentence.item"/>
+            </template>
 
-    </b-table>
-  </div>
+        </b-table>
+    </div>
 </template>
 
 <script>

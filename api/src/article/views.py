@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
 from .models import Article, Sentence, AccountArticle, AccountSentence
+from .utils import is_classified
 from account.models import Account
 
 
@@ -60,7 +61,7 @@ def get_article_view(request):
         AccountArticle.objects.filter(account=account).values('article_id'))]
     articles_not_classified = Article.objects.exclude(id__in=classified_articles_ids)
     for article in articles_not_classified:
-        if AccountArticle.objects.filter(article=article).count() <= 2:
+        if not is_classified(article):
             sentences = []
             for sentence in Sentence.objects.filter(article=article):
                 sentence_data = {

@@ -1,3 +1,4 @@
+import json
 
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -12,8 +13,13 @@ from account.models import Account
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def new_article_view(request):
-    article = Article(id_article=request.data['id_article'],
-                      full_text=request.data['full_text'], url=request.data['url'])
+    if 'ids_ibm' in request.data.keys():
+        article = Article(id_article=request.data['id_article'],
+                          full_text=request.data['full_text'], url=request.data['url'],
+                          ids_ibm=json.loads(request.data['ids_ibm']))
+    else:
+        article = Article(id_article=request.data['id_article'],
+                          full_text=request.data['full_text'], url=request.data['url'])
     article.save()
     list_sentences = request.data['full_text'].split('.')
     list_sentences_exclamation = []

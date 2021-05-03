@@ -5,6 +5,7 @@ class Article(models.Model):
     id_article = models.IntegerField(unique=True)
     full_text = models.TextField()
     url = models.CharField(max_length=255)
+    ids_ibm = models.JSONField(blank=True, null=True)
 
 
 class Sentence(models.Model):

@@ -1,4 +1,5 @@
 import os
+import environ
 
 """
 Django settings for classificationapi project.
@@ -17,6 +18,9 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+root = environ.Path(__file__) - 3  # get root of the project
+environ.Env.read_env(env_file=root('.env'))  # reading .env file
+env = environ.Env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -27,7 +31,7 @@ SECRET_KEY = 'django-insecure--gwu8yl4o$tgjjzt9&3_mgmut=y^1g@r(zk9ul4p6(h$a)$w!4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [env.str('SERVER_IP'), '']
 
 
 # Application definition

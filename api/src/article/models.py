@@ -4,7 +4,7 @@ from django.db import models
 class Article(models.Model):
     id_article = models.IntegerField(unique=True)
     full_text = models.TextField()
-    url = models.CharField(max_length=255)
+    url = models.TextField()
     ids_ibm = models.JSONField(blank=True, null=True)
 
 

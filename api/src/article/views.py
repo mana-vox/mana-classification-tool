@@ -1,4 +1,5 @@
 import json
+import random
 
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -66,6 +67,8 @@ def get_article_view(request):
     classified_articles_ids = [el['article_id'] for el in list(
         AccountArticle.objects.filter(account=account).values('article_id'))]
     articles_not_classified = Article.objects.exclude(id__in=classified_articles_ids)
+    articles_not_classified = list(articles_not_classified)
+    random.shuffle(articles_not_classified)
     for article in articles_not_classified:
         if not is_classified(article):
             sentences = []
